@@ -24,6 +24,10 @@ public class DeepForwardFinder implements Finder
         this.stop = stop;
     }
 
+    private boolean offsetsNotEqual(PsiElement a, PsiElement b) {
+        return a.getTextOffset() != b.getTextOffset();
+    }
+
     @Nullable
     @Override
     public PsiElement next(@Nonnull PsiElement el)

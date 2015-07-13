@@ -31,7 +31,7 @@ public class ForwardInClass extends FinderNavigationAction
                     new AndMatcher(new ParentClassMatcher(Method.class), new LeafTypeMatcher("identifier"))
             );
 
-            Finder finder = new DeepForwardFinder(matcher, new ClassMatcher(PsiFile.class));
+            Finder finder = new DeepForwardFinder(matcher, getFileScopeMatcher());
 
             PsiElement nextElement = finder.next(el);
 

@@ -39,7 +39,6 @@
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl QUOTE"/>
         </action>
         <group id="semnav.navigations" text="Semantic Navigation" description="Semantic Navigation Actions" popup="true">
-            <add-to-group group-id="MainMenu" anchor="last"  />
             <action id="navClassDocBlock" class="navigation.action.ClassDocblockAction" text="Class docblock"/>
 
             <action id="navBackwardsInClass" class="navigation.action.BackwardsInClass" text="Backwards (class)">
@@ -49,10 +48,10 @@
                 <keyboard-shortcut first-keystroke="alt SEMICOLON" keymap="$default" />
             </action>
 
-            <action id="navBackwardsInMethod" class="navigation.action.BackwardsInMethod" text="Backwards (method)">
+            <action id="navBackwardsInMethod" class="navigation.action.BackwardsByVars" text="Backwards (variables)">
                 <keyboard-shortcut first-keystroke="alt COMMA" keymap="$default" />
             </action>
-            <action id="navForwardInMethod" class="navigation.action.ForwardInMethod" text="Forward (method)">
+            <action id="navForwardInMethod" class="navigation.action.ForwardByVars" text="Forward (variables)">
                 <keyboard-shortcut first-keystroke="alt PERIOD" keymap="$default" />
             </action>
         </group>

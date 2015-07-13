@@ -1,6 +1,5 @@
 package navigation.action;
 
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.diagnostic.Logger;
@@ -22,7 +21,7 @@ import util.ElementUtil;
  * @author Artur.Safin <treilor@gmail.com>
  * @licence MIT
  */
-public class ClassDocblockAction extends AnAction
+public class ClassDocblockAction extends FinderNavigationAction
 {
     public static final Logger LOG = Logger.getInstance("#ClassDocblockAction");
 
@@ -41,8 +40,7 @@ public class ClassDocblockAction extends AnAction
             }
 
             if (docComment != null) {
-                int pos = ElementUtil.getEndOffset(docComment);
-                editor.getCaretModel().moveToOffset(pos);
+                jumpToElement(editor, docComment);
             }
         } catch (ContextMissingException exc) {
             // Ignore the action if anything from the context is missing

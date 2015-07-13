@@ -2,7 +2,6 @@ package navigation.action;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import com.jetbrains.php.lang.psi.elements.Field;
 import com.jetbrains.php.lang.psi.elements.Method;
 import com.jetbrains.php.lang.psi.elements.PhpClass;
@@ -31,7 +30,7 @@ public class BackwardsInClass extends FinderNavigationAction
                     new AndMatcher(new ParentClassMatcher(Field.class), new LeafTypeMatcher("variable"))
             );
 
-            Finder finder = new DeepBackwardFinder(matcher, new ClassMatcher(PsiFile.class));
+            Finder finder = new DeepBackwardFinder(matcher, getFileScopeMatcher());
 
             PsiElement nextElement = finder.next(el);
 

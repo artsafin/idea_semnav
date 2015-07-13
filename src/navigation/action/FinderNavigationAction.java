@@ -1,20 +1,13 @@
 package navigation.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.ScrollType;
 import com.intellij.psi.PsiElement;
-import com.jetbrains.php.lang.psi.elements.Field;
-import com.jetbrains.php.lang.psi.elements.Method;
-import com.jetbrains.php.lang.psi.elements.PhpClass;
-import navigation.exception.ContextMissingException;
-import navigation.finder.BackwardFinder;
-import navigation.finder.Finder;
-import util.ActionUtil;
+import com.intellij.psi.PsiFile;
+import com.jetbrains.php.lang.psi.elements.*;
+import navigation.finder.matcher.*;
 import util.ElementUtil;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Artur.Safin <treilor@gmail.com>
@@ -22,11 +15,24 @@ import javax.annotation.Nonnull;
  */
 public abstract class FinderNavigationAction extends AnAction
 {
+    protected PsiElementMatcher getVarsMatcher() {
+        return new OrMatcher(
+                new AndMatcher(new ParentClassMatcher(FieldReference.class), new LeafTypeMatcher("identifier")),
+                new AndMatcher(new ParentClassMatcher(Variable.class), new LeafTypeMatcher("variable")),
+                new ClassMatcher(ParameterList.class)
+        );
+    }
+
+    protected PsiElementMatcher getFileScopeMatcher() {
+        return new ClassMatcher(PsiFile.class);
+    }
+
     protected void jumpToElement(Editor editor, PsiElement el)
     {
         if (el != null) {
             int pos = ElementUtil.getBeginOffset(el);
             editor.getCaretModel().moveToOffset(pos);
+            editor.getScrollingModel().scrollToCaret(ScrollType.MAKE_VISIBLE);
         }
     }
 }

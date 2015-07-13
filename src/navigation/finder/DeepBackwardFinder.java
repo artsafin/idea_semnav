@@ -24,20 +24,28 @@ public class DeepBackwardFinder implements Finder
         this.stop = stop;
     }
 
+    private boolean offsetsNotEqual(PsiElement a, PsiElement b) {
+        return a.getTextOffset() != b.getTextOffset();
+    }
+
     @Nullable
     @Override
     public PsiElement next(@Nonnull PsiElement el)
     {
+        PsiElement originalEl = el;
+
         do {
             if (el.getPrevSibling() != null) {
                 PsiElement match = findMatchInSiblingsOrDepth(el.getPrevSibling());
 
-                if (match != null) {
+                if (match != null && offsetsNotEqual(match, originalEl)) {
                     return match;
                 }
             }
+
             el = el.getParent();
-            if (matcher.matches(el)) {
+
+            if (matcher.matches(el) && offsetsNotEqual(el, originalEl)) {
                 return el;
             }
         } while (!stop.matches(el));
