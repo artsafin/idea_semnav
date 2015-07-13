@@ -32,6 +32,8 @@ public class DeepForwardFinder implements Finder
     @Override
     public PsiElement next(@Nonnull PsiElement el)
     {
+        el = (el.getFirstChild() == null) ? el : el.getFirstChild();
+
         do {
             if (el.getNextSibling() != null) {
                 PsiElement match = findMatchInSiblingsOrDepth(el.getNextSibling());

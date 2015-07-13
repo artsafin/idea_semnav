@@ -24,7 +24,6 @@ public class ForwardInClass extends FinderNavigationAction
     {
         try {
             PsiElement el = ActionUtil.requireCurrentPsi(e);
-            el = normalizeElement(el);
 
             PsiElementMatcher matcher = new OrMatcher(
                     new ClassMatcher(Field.class, PhpClass.class, Method.class),

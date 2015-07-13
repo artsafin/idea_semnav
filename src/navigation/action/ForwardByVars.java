@@ -22,7 +22,6 @@ public class ForwardByVars extends FinderNavigationAction
     {
         try {
             PsiElement el = ActionUtil.requireCurrentPsi(e);
-            el = normalizeElement(el);
 
             PsiElementMatcher matcher = getVarsMatcher();
             PsiElementMatcher stop = getFileScopeMatcher();
